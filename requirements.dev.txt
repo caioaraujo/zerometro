@@ -1,0 +1,4 @@
+-r requirements.txt
+freezegun==1.2.2
+model-bakery==1.12.0
+black==23.3.0
