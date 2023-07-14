@@ -11,7 +11,7 @@ class Game(models.Model):
 
     class Meta:
         db_table = "game"
-        ordering = ["-id"]
+        ordering = ["nome", "plataforma"]
         verbose_name = "Game"
         verbose_name_plural = "Games"
 
