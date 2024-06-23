@@ -1,5 +1,5 @@
-run-server:
-	python manage.py migrate && python manage.py runserver
+run-server: migrate
+	python manage.py runserver
 
 test:
 	python -Wa manage.py test
@@ -9,3 +9,9 @@ black:
 
 django-shell:
 	python manage.py shell
+
+make-migrations:
+	python manage.py makemigrations
+
+migrate:
+	python manage.py migrate
