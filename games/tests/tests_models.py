@@ -72,4 +72,6 @@ class TestModels(TestCase):
         self.assertEqual(data_criado_esperado, game.data_criado)
 
     def test_str(self):
-        self.assertEqual("Super Mario World - Super Nintendo", str(self.game_finalizado))
+        self.assertEqual(
+            "Super Mario World - Super Nintendo", str(self.game_finalizado)
+        )
