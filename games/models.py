@@ -11,7 +11,8 @@ class Game(models.Model):
     nome = models.CharField(max_length=250, help_text="Nome do game")
     plataforma = models.ForeignKey(
         "Plataforma",
-        related_name="plataforma",
+        related_name="games",
+        related_query_name="game",
         on_delete=models.CASCADE,
         help_text="Plataforma",
     )
@@ -19,6 +20,7 @@ class Game(models.Model):
     completado = models.BooleanField(
         help_text="Verdadeiro caso tenha obtido o set completo de conquistas/trofeus"
     )
+    lista_desejos = models.BooleanField(help_text="Lista de desejos?")
     midia = models.CharField(
         max_length=10,
         help_text="Tipo de mídia. Ex: física, digital",
@@ -32,6 +34,16 @@ class Game(models.Model):
         ordering = ["nome", "plataforma"]
         verbose_name = "Game"
         verbose_name_plural = "Games"
+        
+    def save(
+        self, force_insert=False, force_update=False, using=None, update_fields=None
+    ):
+        if self.completado:
+            self.finalizado = True
+            self.lista_desejos = False
+        if self.finalizado:
+            self.lista_desejos = False
+        super().save(force_insert, force_update, using, update_fields)
 
     def __str__(self):
         if self.plataforma:

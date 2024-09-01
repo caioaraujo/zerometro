@@ -66,12 +66,13 @@ class TestModels(TestCase):
         self.assertEqual("Atari Jaguar", plataforma.nome)
 
     @freeze_time("2018-01-01 08:45")
-    def test_adiciona_game_finalizado(self):
+    def test_adiciona_game_completado(self):
         game = Game()
         game.nome = "Legend of Zelda - Ocarina of Time"
         game.plataforma_id = 3
-        game.finalizado = True
+        game.finalizado = False
         game.completado = True
+        game.lista_desejos = True
         game.save()
 
         self.assertIsNotNone(game.id)
@@ -83,7 +84,54 @@ class TestModels(TestCase):
         )
         self.assertEqual("Legend of Zelda - Ocarina of Time", game.nome)
         self.assertEqual("Nintendo 64", game.plataforma.nome)
+        self.assertFalse(game.lista_desejos)
         self.assertTrue(game.finalizado)
+        self.assertTrue(game.completado)
+
+    @freeze_time("2018-01-01 08:45")
+    def test_adiciona_game_finalizado(self):
+        game = Game()
+        game.nome = "Legend of Zelda - Ocarina of Time"
+        game.plataforma_id = 3
+        game.finalizado = True
+        game.completado = True
+        game.lista_desejos = True
+        game.save()
+
+        self.assertIsNotNone(game.id)
+        self.assertEqual(
+            "2018-01-01 08:45", game.data_criado.strftime("%Y-%m-%d %H:%M")
+        )
+        self.assertEqual(
+            "2018-01-01 08:45", game.data_alterado.strftime("%Y-%m-%d %H:%M")
+        )
+        self.assertEqual("Legend of Zelda - Ocarina of Time", game.nome)
+        self.assertEqual("Nintendo 64", game.plataforma.nome)
+        self.assertFalse(game.lista_desejos)
+        self.assertTrue(game.finalizado)
+
+    @freeze_time("2018-01-01 08:45")
+    def test_adiciona_game_lista_desejos(self):
+        game = Game()
+        game.nome = "Legend of Zelda - Ocarina of Time"
+        game.plataforma_id = 3
+        game.finalizado = False
+        game.completado = False
+        game.lista_desejos = True
+        game.save()
+
+        self.assertIsNotNone(game.id)
+        self.assertEqual(
+            "2018-01-01 08:45", game.data_criado.strftime("%Y-%m-%d %H:%M")
+        )
+        self.assertEqual(
+            "2018-01-01 08:45", game.data_alterado.strftime("%Y-%m-%d %H:%M")
+        )
+        self.assertEqual("Legend of Zelda - Ocarina of Time", game.nome)
+        self.assertEqual("Nintendo 64", game.plataforma.nome)
+        self.assertTrue(game.lista_desejos)
+        self.assertFalse(game.finalizado)
+        self.assertFalse(game.completado)
 
     @freeze_time("2018-01-01 08:45")
     def test_adiciona_game_nao_finalizado(self):
@@ -92,6 +140,7 @@ class TestModels(TestCase):
         game.plataforma_id = 1
         game.finalizado = False
         game.completado = False
+        game.lista_desejos = False
         game.midia = "DIGITAL"
         game.save()
 
@@ -131,6 +180,7 @@ class TestModels(TestCase):
         game.plataforma_id = plataforma.id
         game.finalizado = False
         game.completado = False
+        game.lista_desejos = True
         game.save()
 
         self.assertEqual(game.plataforma_id, plataforma.id)
