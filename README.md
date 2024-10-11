@@ -5,7 +5,7 @@ How many games can someone finish?
 
 ## Dependencies
 - Python 3.11+
-- PostgreSQL 12
+- PostgreSQL 13+
 
 ## Run application
 First, create a database on postgres called "zerometro".

@@ -8,8 +8,8 @@ class MyAdminSite(admin.AdminSite):
 
 
 class GameAdmin(admin.ModelAdmin):
-    list_display = ["nome", "plataforma", "finalizado", "completado", "midia"]
-    list_filter = ["nome", "plataforma", "finalizado", "completado", "midia"]
+    list_display = ["nome", "plataforma", "finalizado", "completado", "lista_desejos", "midia"]
+    list_filter = ["nome", "plataforma", "finalizado", "completado", "lista_desejos", "midia"]
     search_fields = ["nome"]
 
 
