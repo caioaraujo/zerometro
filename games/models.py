@@ -34,7 +34,7 @@ class Game(models.Model):
         ordering = ["nome", "plataforma"]
         verbose_name = "Game"
         verbose_name_plural = "Games"
-        
+
     def save(
         self, force_insert=False, force_update=False, using=None, update_fields=None
     ):
@@ -43,7 +43,12 @@ class Game(models.Model):
             self.lista_desejos = False
         if self.finalizado:
             self.lista_desejos = False
-        super().save(force_insert, force_update, using, update_fields)
+        super().save(
+            force_insert=force_insert,
+            force_update=force_update,
+            using=using,
+            update_fields=update_fields,
+        )
 
     def __str__(self):
         if self.plataforma:
