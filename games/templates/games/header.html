@@ -1,0 +1,6 @@
+[<a href="/games">Home</a>]
+{% if user.is_authenticated %}
+    Olá, {{ user.username }}!
+{% else %}
+    Seja bem-vindo(a). <a href="/cadastro.html">Cadastre-se</a> ou <a href="/login.html">entre</a>.
+{% endif %}

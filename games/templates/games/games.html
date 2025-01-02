@@ -1,0 +1,17 @@
+{% include "./header.html" %}
+
+<p>Escolha o game:</p>
+{% if lista_games %}
+    <ul>
+    {% for game in lista_games %}
+        <li><a href="/game/{{ game.id }}/">{{ game.nome }} ({{ game.plataforma.nome }})</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Não existem games cadastrados.</p>
+{% endif %}
+
+{% if user.is_authenticated %}
+{% url 'login:logout' as logout_url %}
+<a href="{{ logout_url }}">Logout</a>
+{% endif %}

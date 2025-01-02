@@ -1,0 +1,9 @@
+{% include "./header.html" %}
+
+<p>{{ game.nome }} ({{ game.plataforma.nome }})</p>
+
+<a href="{{request.META.HTTP_REFERER}}">Voltar</a>
+{% if user.is_authenticated %}
+{% url 'login:logout' as logout_url %}
+<a href="{{ logout_url }}">Logout</a>
+{% endif %}
