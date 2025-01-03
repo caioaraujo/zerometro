@@ -1,9 +1,6 @@
 run-server: migrate
 	python manage.py runserver
 
-test:
-	python -Wa manage.py test
-
 black:
 	black .
 
@@ -15,3 +12,6 @@ make-migrations:
 
 migrate:
 	python manage.py migrate
+
+test: migrate
+	python -Wa manage.py test

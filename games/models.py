@@ -80,7 +80,7 @@ class Progresso(models.Model):
         User,
         related_name="user_game_progresso",
         related_query_name="user_game_progresso",
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
     finalizado = models.BooleanField(help_text="Finalizado?")
     completado = models.BooleanField(

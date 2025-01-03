@@ -23,12 +23,11 @@ class TestGameService(TestCase):
             nome="Super Nintendo",
         )
 
-        baker.make("Game",
+        baker.make(
+            "Game",
             id=1,
             nome="Super Mario World",
             plataforma_id=1,
-            finalizado=True,
-            completado=False,
             midia="DIGITAL",
         )
 
