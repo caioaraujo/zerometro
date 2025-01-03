@@ -22,6 +22,11 @@ class TestModels(TestCase):
             id=3,
             nome="Nintendo 64",
         )
+        self.plataforma_jaguar = baker.make(
+            "Plataforma",
+            id=4,
+            nome="Jaguar",
+        )
         self.game_1 = baker.make(
             "Game",
             id=1,
@@ -120,14 +125,38 @@ class TestModels(TestCase):
         self.assertEqual("Super Nintendo", str(self.plataforma_snes))
 
     def test_adiciona_progresso(self):
-        progresso = Progresso()
-        progresso.game_id = self.game_1.id
-        progresso.user_id = self.user_1.id
-        progresso.finalizado = True
-        progresso.completado = False
-        progresso.lista_desejos = False
-        progresso.save()
+        progresso_finalizado = Progresso()
+        progresso_finalizado.game_id = self.game_1.id
+        progresso_finalizado.user_id = self.user_1.id
+        progresso_finalizado.finalizado = True
+        progresso_finalizado.completado = False
+        progresso_finalizado.lista_desejos = True
+        progresso_finalizado.save()
 
-        self.assertTrue(progresso.finalizado)
-        self.assertFalse(progresso.completado)
-        self.assertFalse(progresso.lista_desejos)
+        self.assertTrue(progresso_finalizado.finalizado)
+        self.assertFalse(progresso_finalizado.completado)
+        self.assertFalse(progresso_finalizado.lista_desejos)
+
+        progresso_completado = Progresso()
+        progresso_completado.game_id = self.game_2.id
+        progresso_completado.user_id = self.user_1.id
+        progresso_completado.finalizado = False
+        progresso_completado.completado = True
+        progresso_completado.lista_desejos = False
+        progresso_completado.save()
+
+        self.assertTrue(progresso_completado.finalizado)
+        self.assertTrue(progresso_completado.completado)
+        self.assertFalse(progresso_completado.lista_desejos)
+
+        progresso_lista_desejos = Progresso()
+        progresso_lista_desejos.game_id = self.game_3.id
+        progresso_lista_desejos.user_id = self.user_1.id
+        progresso_lista_desejos.finalizado = False
+        progresso_lista_desejos.completado = False
+        progresso_lista_desejos.lista_desejos = True
+        progresso_lista_desejos.save()
+
+        self.assertFalse(progresso_lista_desejos.finalizado)
+        self.assertFalse(progresso_lista_desejos.completado)
+        self.assertTrue(progresso_lista_desejos.lista_desejos)

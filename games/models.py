@@ -31,21 +31,6 @@ class Game(models.Model):
         verbose_name = "Game"
         verbose_name_plural = "Games"
 
-    def save(
-        self, force_insert=False, force_update=False, using=None, update_fields=None
-    ):
-        if self.completado:
-            self.finalizado = True
-            self.lista_desejos = False
-        if self.finalizado:
-            self.lista_desejos = False
-        super().save(
-            force_insert=force_insert,
-            force_update=force_update,
-            using=using,
-            update_fields=update_fields,
-        )
-
     def __str__(self):
         if self.plataforma:
             return f"{self.nome} - {self.plataforma.nome}"
@@ -95,3 +80,18 @@ class Progresso(models.Model):
         ordering = ["game"]
         verbose_name = "Progresso"
         verbose_name_plural = "Progressos"
+
+    def save(
+        self, force_insert=False, force_update=False, using=None, update_fields=None
+    ):
+        if self.completado:
+            self.finalizado = True
+            self.lista_desejos = False
+        if self.finalizado:
+            self.lista_desejos = False
+        super().save(
+            force_insert=force_insert,
+            force_update=force_update,
+            using=using,
+            update_fields=update_fields,
+        )
