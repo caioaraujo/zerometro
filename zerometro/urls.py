@@ -18,4 +18,8 @@ Including another URLconf
 from django.urls import path, include
 from games.admin import admin_site
 
-urlpatterns = [path("admin/", admin_site.urls), path("", include("games.urls"))]
+urlpatterns = [
+    path("admin/", admin_site.urls),
+    path("", include("games.urls")),
+    path("", include("login.urls")),
+]

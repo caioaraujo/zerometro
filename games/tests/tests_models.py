@@ -9,48 +9,44 @@ class TestModels(TestCase):
     def setUp(self):
         self.plataforma_snes = baker.make(
             "Plataforma",
-            id=1,
+            # id=1,
             nome="Super Nintendo",
         )
         self.plataforma_xbox360 = baker.make(
             "Plataforma",
-            id=2,
+            # id=2,
             nome="Xbox360",
         )
         self.plataforma_n64 = baker.make(
             "Plataforma",
-            id=3,
+            # id=3,
             nome="Nintendo 64",
         )
         self.plataforma_jaguar = baker.make(
             "Plataforma",
-            id=4,
+            # id=4,
             nome="Jaguar",
         )
         self.game_1 = baker.make(
             "Game",
-            id=1,
             nome="Super Mario World",
-            plataforma_id=1,
+            plataforma_id=self.plataforma_snes.id,
             midia="DIGITAL",
         )
         self.game_2 = baker.make(
             "Game",
-            id=2,
             nome="Legend of Zelda Ocarina of Time",
-            plataforma_id=3,
+            plataforma_id=self.plataforma_n64.id,
             midia="DIGITAL",
         )
         self.game_3 = baker.make(
             "Game",
-            id=3,
             nome="Red Dead Redemption",
-            plataforma_id=2,
+            plataforma_id=self.plataforma_xbox360.id,
             midia="FISICA",
         )
         self.user_1 = baker.make(
             "auth.User",
-            id=1,
         )
 
     def test_adiciona_plataforma(self):
@@ -62,7 +58,7 @@ class TestModels(TestCase):
         self.assertEqual("Playstation 3", plataforma.nome)
 
     def test_altera_plataforma(self):
-        plataforma = Plataforma.objects.get(id=4)
+        plataforma = Plataforma.objects.get(id=self.plataforma_jaguar.id)
         plataforma.nome = "Atari Jaguar"
         plataforma.save()
 
@@ -72,7 +68,7 @@ class TestModels(TestCase):
     def test_adiciona_game(self):
         game = Game()
         game.nome = "Legend of Zelda - Ocarina of Time"
-        game.plataforma_id = 3
+        game.plataforma_id = self.plataforma_n64.id
         game.save()
 
         self.assertIsNotNone(game.id)
@@ -87,7 +83,7 @@ class TestModels(TestCase):
 
     @freeze_time("2022-04-05 18:14")
     def test_altera_game(self):
-        game = Game.objects.get(id=2)
+        game = Game.objects.get(id=self.game_2.id)
         data_criado_esperado = game.data_criado
         game.nome = "Sonic Colors"
         game.save()
@@ -111,14 +107,14 @@ class TestModels(TestCase):
         self.assertEqual(game.plataforma_id, plataforma.id)
 
     def test_remove_plataforma(self):
-        Plataforma.objects.get(id=1).delete()
+        Plataforma.objects.get(id=self.plataforma_snes.id).delete()
 
         with self.assertRaises(Plataforma.DoesNotExist):
-            Plataforma.objects.get(id=1)
+            Plataforma.objects.get(id=self.plataforma_snes.id)
 
         # Asserts cascade delete
         with self.assertRaises(Game.DoesNotExist):
-            Game.objects.get(plataforma_id=1)
+            Game.objects.get(plataforma_id=self.plataforma_snes.id)
 
     def test_str(self):
         self.assertEqual("Super Mario World - Super Nintendo", str(self.game_1))

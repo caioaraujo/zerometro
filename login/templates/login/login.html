@@ -1,0 +1,10 @@
+<p>Bem-vindo(a).</p>
+<form method="post">
+    {% csrf_token %}
+    <div id="username">
+        {{ form.as_p }}
+        <input type="submit" value="Entrar">
+    </div>
+</form>
+
+<p><a href="{{request.META.HTTP_REFERER}}">Voltar</a></p>

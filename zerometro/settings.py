@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Apps do projeto
     "games.apps.GamesConfig",
+    "login.apps.LoginConfig",
 ]
 
 MIDDLEWARE = [

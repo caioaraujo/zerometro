@@ -18,7 +18,7 @@ class ProgressoAdmin(admin.ModelAdmin):
     list_filter = [
         "user"
     ]
-    search_fields = ["game", "user"]
+    search_fields = ["game__nome"]
 
 
 class GameAdmin(admin.ModelAdmin):
