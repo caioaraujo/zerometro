@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 
 class Game(models.Model):
@@ -16,11 +17,6 @@ class Game(models.Model):
         on_delete=models.CASCADE,
         help_text="Plataforma",
     )
-    finalizado = models.BooleanField(help_text="Finalizado?")
-    completado = models.BooleanField(
-        help_text="Verdadeiro caso tenha obtido o set completo de conquistas/trofeus"
-    )
-    lista_desejos = models.BooleanField(help_text="Lista de desejos?")
     midia = models.CharField(
         max_length=10,
         help_text="Tipo de mídia. Ex: física, digital",
@@ -70,3 +66,32 @@ class Plataforma(models.Model):
 
     def __str__(self):
         return self.nome
+
+
+class Progresso(models.Model):
+    id = models.AutoField(primary_key=True)
+    game = models.ForeignKey(
+        "Game",
+        related_name="game_progresso",
+        related_query_name="game_progresso",
+        on_delete=models.CASCADE,
+    )
+    user = models.ForeignKey(
+        User,
+        related_name="user_game_progresso",
+        related_query_name="user_game_progresso",
+        on_delete=models.CASCADE
+    )
+    finalizado = models.BooleanField(help_text="Finalizado?")
+    completado = models.BooleanField(
+        help_text="Verdadeiro caso tenha obtido o set completo de conquistas/trofeus"
+    )
+    lista_desejos = models.BooleanField(help_text="Lista de desejos?")
+    data_criado = models.DateTimeField(auto_now_add=True)
+    data_alterado = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "progresso"
+        ordering = ["game"]
+        verbose_name = "Progresso"
+        verbose_name_plural = "Progressos"
