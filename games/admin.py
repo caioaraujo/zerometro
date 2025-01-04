@@ -8,16 +8,8 @@ class MyAdminSite(admin.AdminSite):
 
 
 class ProgressoAdmin(admin.ModelAdmin):
-    list_display = [
-        "user",
-        "game",
-        "finalizado",
-        "completado",
-        "lista_desejos"
-    ]
-    list_filter = [
-        "user"
-    ]
+    list_display = ["user", "game", "finalizado", "completado", "lista_desejos"]
+    list_filter = ["user"]
     search_fields = ["game__nome"]
 
 

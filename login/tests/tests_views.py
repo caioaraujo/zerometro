@@ -2,6 +2,7 @@ from django.contrib import auth
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
+
 class TestViews(TestCase):
 
     def setUp(self):

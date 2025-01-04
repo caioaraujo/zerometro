@@ -21,5 +21,12 @@ class GameId(LoginRequiredMixin, FormView, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["game"] = GameService.get_by_id(game_id=kwargs["game_id"])
+        progresso = GameService.get_game_progresso(
+            game_id=kwargs["game_id"], user_id=self.request.user.id
+        )
+        context["game"] = progresso["game_nome"]
+        context["plataforma"] = progresso["plataforma"]
+        context["finalizado"] = progresso["finalizado"]
+        context["completado"] = progresso["completado"]
+        context["lista_desejos"] = progresso["lista_desejos"]
         return context

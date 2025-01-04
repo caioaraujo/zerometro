@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 from model_bakery import baker
 
@@ -16,20 +17,33 @@ class TestGameService(TestCase):
         all_games = GameService.get_all()
         self.assertEqual(0, len(all_games))
 
-    def test_get_by_id(self):
-        baker.make(
+    def test_get_game_progresso(self):
+        user = baker.make(User)
+
+        plataforma = baker.make(
             "Plataforma",
-            id=1,
             nome="Super Nintendo",
         )
 
-        baker.make(
+        game = baker.make(
             "Game",
-            id=1,
             nome="Super Mario World",
-            plataforma_id=1,
+            plataforma_id=plataforma.id,
             midia="DIGITAL",
         )
 
-        game = GameService.get_by_id(1)
-        self.assertEqual("Super Mario World", game.nome)
+        baker.make(
+            "Progresso",
+            game=game,
+            user=user,
+            finalizado=True,
+            completado=True,
+            lista_desejos=False,
+        )
+
+        result = GameService.get_game_progresso(game.id, user.id)
+        self.assertEqual("Super Mario World", result["game_nome"])
+        self.assertEqual("Super Nintendo", result["plataforma"])
+        self.assertTrue(result["finalizado"])
+        self.assertTrue(result["completado"])
+        self.assertFalse(result["lista_desejos"])

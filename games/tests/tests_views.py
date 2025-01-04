@@ -6,8 +6,17 @@ from model_bakery import baker
 class TestViews(TestCase):
     def setUp(self):
         self.user = baker.make(User)
-        baker.make("Game", id=1, nome="Game 1")
+        plataforma = baker.make("Plataforma", id=1, nome="Plataforma 1")
+        game = baker.make("Game", id=1, nome="Game 1", plataforma=plataforma)
         baker.make("Game", _quantity=4)
+        baker.make(
+            "Progresso",
+            user_id=self.user.id,
+            game_id=game.id,
+            finalizado=True,
+            completado=False,
+            lista_desejos=False,
+        )
 
     def test_get_games(self):
         self.client.force_login(self.user)
@@ -19,9 +28,14 @@ class TestViews(TestCase):
         self.client.force_login(self.user)
         response = self.client.get("/game/1/", follow=True)
         self.assertEqual(response.status_code, 200)
-        self.assertEqual("Game 1", response.context["game"].nome)
+        self.assertEqual("Game 1", response.context["game"])
+        self.assertEqual("Plataforma 1", response.context["plataforma"])
+        self.assertTrue(response.context["finalizado"])
+        self.assertFalse(response.context["completado"])
+        self.assertFalse(response.context["lista_desejos"])
 
     def test_fetch_game_when_user_is_not_logged_in(self):
         response = self.client.get("/game/1/", follow=True)
         self.assertEqual(response.status_code, 200)
+        self.assertIsNone(response.context.get("game"))
         self.assertRedirects(response, "/login.html?next=/game/1/")
