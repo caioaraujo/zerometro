@@ -1,6 +1,22 @@
 {% include "./header.html" %}
 
-<p>{{ game.nome }} ({{ game.plataforma.nome }})</p>
+<form method="post">
+    {% csrf_token %}
+    <p>{{ game.nome }} ({{ game.plataforma.nome }})</p>
+    <p>
+        <input id="id_finalizado" type="checkbox">
+        <label for="id_finalizado">Finalizado</label>
+    </p>
+    <p>
+        <input id="id_completado" type="checkbox">
+        <label for="id_completado">Completado</label>
+    </p>
+    <p>
+        <input id="id_lista_desejos" type="checkbox">
+        <label for="id_lista_desejos">Lista de desejos</label>
+    </p>
+    <input type="submit" value="Salvar">
+</form>
 
 <a href="{{request.META.HTTP_REFERER}}">Voltar</a>
 {% if user.is_authenticated %}

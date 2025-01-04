@@ -1,5 +1,7 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView, FormView
 
+from .forms import GameForm
 from .services import GameService
 
 
@@ -12,7 +14,9 @@ class Games(TemplateView):
         return context
 
 
-class GameId(TemplateView):
+class GameId(LoginRequiredMixin, FormView, TemplateView):
+    form_class = GameForm
+    login_url = "login:login_view"
     template_name = "games/game.html"
 
     def get_context_data(self, **kwargs):
