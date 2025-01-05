@@ -18,6 +18,7 @@ class GameId(LoginRequiredMixin, FormView, TemplateView):
     form_class = GameForm
     login_url = "login:login_view"
     template_name = "games/game.html"
+    success_url = "/games"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -30,3 +31,9 @@ class GameId(LoginRequiredMixin, FormView, TemplateView):
         context["completado"] = progresso["completado"]
         context["lista_desejos"] = progresso["lista_desejos"]
         return context
+
+    def form_valid(self, form):
+        GameService.save_progresso(
+            form.cleaned_data, self.kwargs["game_id"], self.request.user.id
+        )
+        return super().form_valid(form)

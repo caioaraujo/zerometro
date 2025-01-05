@@ -2,6 +2,6 @@ from django import forms
 
 
 class GameForm(forms.Form):
-    finalizado = forms.BooleanField()
-    completado = forms.BooleanField()
-    lista_desejos = forms.BooleanField()
+    finalizado = forms.BooleanField(required=False)
+    completado = forms.BooleanField(required=False)
+    lista_desejos = forms.BooleanField(required=False)
