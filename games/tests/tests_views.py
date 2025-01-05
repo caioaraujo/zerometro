@@ -25,6 +25,10 @@ class TestViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(5, response.context["lista_games"].count())
 
+    def test_get_games__redirect_from_index(self):
+        response = self.client.get("/", follow=True)
+        self.assertRedirects(response, "games/", status_code=302)
+
     def test_fetch_game(self):
         self.client.force_login(self.user)
         response = self.client.get("/game/1/", follow=True)
