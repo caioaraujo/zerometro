@@ -25,7 +25,7 @@ class GameId(LoginRequiredMixin, FormView, TemplateView):
             game_id=kwargs["game_id"], user_id=self.request.user.id
         )
         context["game"] = progresso["game_nome"]
-        context["plataforma"] = progresso["plataforma"]
+        context["plataforma"] = progresso["plataforma_nome"]
         context["finalizado"] = progresso["finalizado"]
         context["completado"] = progresso["completado"]
         context["lista_desejos"] = progresso["lista_desejos"]
