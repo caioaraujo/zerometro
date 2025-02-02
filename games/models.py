@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import UniqueConstraint
 
 
 class Game(models.Model):
@@ -30,6 +31,14 @@ class Game(models.Model):
         ordering = ["nome", "plataforma"]
         verbose_name = "Game"
         verbose_name_plural = "Games"
+
+        constraints = [
+            UniqueConstraint(
+                fields=["nome", "plataforma_id"],
+                name="unique_game_plataforma",
+                violation_error_message="Game deve ser único por plataforma",
+            )
+        ]
 
     def __str__(self):
         if self.plataforma:

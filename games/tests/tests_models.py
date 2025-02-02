@@ -1,3 +1,4 @@
+from django.db.utils import IntegrityError
 from django.test import TestCase
 from freezegun import freeze_time
 from model_bakery import baker
@@ -80,6 +81,15 @@ class TestModels(TestCase):
         )
         self.assertEqual("Legend of Zelda - Ocarina of Time", game.nome)
         self.assertEqual("Nintendo 64", game.plataforma.nome)
+
+    def test_adiciona_game_valida_unique_game_plataforma(self):
+        game = Game()
+        game.nome = "Super Mario World"
+        game.plataforma_id = self.plataforma_snes.id
+
+        with self.assertRaises(IntegrityError) as err:
+            game.save()
+            self.assertEqual("Game deve ser único por plataforma", err.msg)
 
     @freeze_time("2022-04-05 18:14")
     def test_altera_game(self):
