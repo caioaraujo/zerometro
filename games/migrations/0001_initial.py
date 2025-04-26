@@ -43,14 +43,6 @@ class Migration(migrations.Migration):
                         help_text="Verdadeiro caso tenha obtido o set completo de conquistas/trofeus"
                     ),
                 ),
-                (
-                    "midia",
-                    models.CharField(
-                        choices=[("FISICA", "Física"), ("DIGITAL", "Digital")],
-                        help_text="Tipo de mídia. Ex: física, digital",
-                        max_length=10,
-                    ),
-                ),
                 ("data_criado", models.DateTimeField(auto_now_add=True)),
                 ("data_alterado", models.DateTimeField(auto_now=True)),
                 (

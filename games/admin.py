@@ -17,12 +17,10 @@ class GameAdmin(admin.ModelAdmin):
     list_display = [
         "nome",
         "plataforma",
-        "midia",
     ]
     list_filter = [
         "nome",
         "plataforma",
-        "midia",
     ]
     search_fields = ["nome"]
 

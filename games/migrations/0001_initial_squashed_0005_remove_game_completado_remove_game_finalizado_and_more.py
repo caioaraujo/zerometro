@@ -45,14 +45,6 @@ class Migration(migrations.Migration):
             fields=[
                 ("id", models.AutoField(primary_key=True, serialize=False)),
                 ("nome", models.CharField(help_text="Nome do game", max_length=250)),
-                (
-                    "midia",
-                    models.CharField(
-                        choices=[("FISICA", "Física"), ("DIGITAL", "Digital")],
-                        help_text="Tipo de mídia. Ex: física, digital",
-                        max_length=10,
-                    ),
-                ),
                 ("data_criado", models.DateTimeField(auto_now_add=True)),
                 ("data_alterado", models.DateTimeField(auto_now=True)),
                 (

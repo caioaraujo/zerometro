@@ -30,7 +30,6 @@ class TestGameService(TestCase):
             "Game",
             nome="Super Mario World",
             plataforma_id=plataforma.id,
-            midia="DIGITAL",
         )
 
         baker.make(
@@ -62,7 +61,6 @@ class TestGameService(TestCase):
             "Game",
             nome="Super Mario World",
             plataforma_id=plataforma.id,
-            midia="DIGITAL",
         )
 
         baker.make(
@@ -91,7 +89,6 @@ class TestGameService(TestCase):
             "Game",
             nome="Super Mario World",
             plataforma_id=plataforma.id,
-            midia="DIGITAL",
         )
         progresso = {"finalizado": True, "completado": True, "lista_desejos": False}
         GameService.save_progresso(progresso, game.id, user.id)
@@ -113,7 +110,6 @@ class TestGameService(TestCase):
             "Game",
             nome="Super Mario World",
             plataforma_id=plataforma.id,
-            midia="DIGITAL",
         )
         baker.make(
             "Progresso",
@@ -147,7 +143,6 @@ class TestGameService(TestCase):
             "Game",
             nome="Super Mario World",
             plataforma_id=plataforma.id,
-            midia="DIGITAL",
         )
         novo_progresso = {
             "finalizado": False,

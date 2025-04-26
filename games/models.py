@@ -4,11 +4,6 @@ from django.db.models import UniqueConstraint
 
 
 class Game(models.Model):
-    MIDIA_CHOICES = {
-        "FISICA": "Física",
-        "DIGITAL": "Digital",
-    }
-
     id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=250, help_text="Nome do game")
     plataforma = models.ForeignKey(
@@ -17,11 +12,6 @@ class Game(models.Model):
         related_query_name="game",
         on_delete=models.CASCADE,
         help_text="Plataforma",
-    )
-    midia = models.CharField(
-        max_length=10,
-        help_text="Tipo de mídia. Ex: física, digital",
-        choices=MIDIA_CHOICES,
     )
     data_criado = models.DateTimeField(auto_now_add=True)
     data_alterado = models.DateTimeField(auto_now=True)

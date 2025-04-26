@@ -10,41 +10,34 @@ class TestModels(TestCase):
     def setUp(self):
         self.plataforma_snes = baker.make(
             "Plataforma",
-            # id=1,
             nome="Super Nintendo",
         )
         self.plataforma_xbox360 = baker.make(
             "Plataforma",
-            # id=2,
             nome="Xbox360",
         )
         self.plataforma_n64 = baker.make(
             "Plataforma",
-            # id=3,
             nome="Nintendo 64",
         )
         self.plataforma_jaguar = baker.make(
             "Plataforma",
-            # id=4,
             nome="Jaguar",
         )
         self.game_1 = baker.make(
             "Game",
             nome="Super Mario World",
             plataforma_id=self.plataforma_snes.id,
-            midia="DIGITAL",
         )
         self.game_2 = baker.make(
             "Game",
             nome="Legend of Zelda Ocarina of Time",
             plataforma_id=self.plataforma_n64.id,
-            midia="DIGITAL",
         )
         self.game_3 = baker.make(
             "Game",
             nome="Red Dead Redemption",
             plataforma_id=self.plataforma_xbox360.id,
-            midia="FISICA",
         )
         self.user_1 = baker.make(
             "auth.User",
